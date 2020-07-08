@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--组件扫描,但是不扫描控制器-->
+    <context:component-scan base-package="com.company">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--将原本在Mybatis-config中的数据源管理交给spring来做-->
+    <context:property-placeholder location="druid.properties"/>
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" lazy-init="false">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--管理mybatis操作数据库的会话对象SQlsession-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:Mybatis-config.xml"/>
+        <property name="dataSource" ref="druidDataSource"/>
+        <!--设置映射文件路径-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+    <!--在所设置的包下,将所有的接口生成动态代理对象,并由Spring管理(mapper作为接口不能实例化,需要有一个动态代理实现类)-->
+    <!--sqlSession.getMapper(UserMapper.class)这句代码最终返回的应该就是一个由jdk动态代理生成的代理类,现在就是用这个bean创建所有mapper的代理类-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.company.mapper"/>
+    </bean>
+    <!--========事务管理========-->
+    <!--配置事务管理器-->
+    <bean id="dataSourceTransactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="druidDataSource"/>
+    </bean>
+
+    <!--开启基于注解的事务,配置上面的事务增强在哪起作用-->
+    <aop:config>
+        <!--配置切点-->
+        <aop:pointcut id="txPoint" expression="execution(* com.company.service..*(..))"/>
+        <!--为切点配置事务增强-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
+
+    <!--配置事务增强-->
+    <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
+        <tx:attributes>
+            <!--所有方法都是事务的-->
+            <tx:method name="*"/>
+            <!--get类方法设置为只读,优化效率-->
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+</beans>

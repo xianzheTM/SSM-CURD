@@ -2,6 +2,8 @@ package com.company.mapper;
 
 import com.company.bean.TblEmp;
 
+import java.util.List;
+
 /**
  * @author xianzheTM
  * @version 1.0
@@ -22,4 +24,6 @@ public interface TblEmpMapper {
     int updateByPrimaryKeySelective(TblEmp record);
 
     int updateByPrimaryKey(TblEmp record);
+
+    List<TblEmp> selectAll();
 }

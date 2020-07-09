@@ -55,9 +55,9 @@
             useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into tbl_emp (emp_name, gender, email,
-        d_id)
+                             d_id)
         values (#{empName,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, #{email,jdbcType=VARCHAR},
-        #{dId,jdbcType=INTEGER})
+                #{dId,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" keyColumn="emp_id" keyProperty="empId" parameterType="com.company.bean.TblEmp"
             useGeneratedKeys="true">
@@ -115,9 +115,9 @@
         <!--@mbg.generated-->
         update tbl_emp
         set emp_name = #{empName,jdbcType=VARCHAR},
-        gender = #{gender,jdbcType=CHAR},
-        email = #{email,jdbcType=VARCHAR},
-        d_id = #{dId,jdbcType=INTEGER}
+            gender   = #{gender,jdbcType=CHAR},
+            email    = #{email,jdbcType=VARCHAR},
+            d_id     = #{dId,jdbcType=INTEGER}
         where emp_id = #{empId,jdbcType=INTEGER}
     </update>
 
@@ -126,7 +126,14 @@
         select
         <include refid="WithDept_Column_List"/>
         from tbl_emp te
-        left join tbl_dept td on te.d_id = td.dept_id
+                     left join tbl_dept td on te.d_id = td.dept_id
         where emp_id = #{empId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="WithDeptResultMap">
+        select
+        <include refid="WithDept_Column_List"/>
+        from tbl_emp te
+                     left join tbl_dept td on te.d_id = td.dept_id
     </select>
 </mapper>

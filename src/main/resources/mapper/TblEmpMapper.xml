@@ -126,7 +126,14 @@
         select
         <include refid="WithDept_Column_List"/>
         from tbl_emp te
-        left join tbl_dept td on te.d_id = td.dept_id
+                     left join tbl_dept td on te.d_id = td.dept_id
         where emp_id = #{empId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="WithDept_Column_List"/>
+        from tbl_emp te
+                     left join tbl_dept td on te.d_id = td.dept_id
     </select>
 </mapper>

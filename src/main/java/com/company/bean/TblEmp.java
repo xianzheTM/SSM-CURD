@@ -6,7 +6,7 @@ package com.company.bean;
  * @date 2020/7/8 15:04
  */
 
-public class Employee {
+public class TblEmp {
     private Integer empId;
 
     private String empName;
@@ -17,12 +17,12 @@ public class Employee {
 
     private Integer dId;
 
-    private Department dept;
+    private TblDept dept;
 
-    public Employee() {
+    public TblEmp() {
     }
 
-    public Employee(Integer empId, String empName, String gender, String email, Integer dId) {
+    public TblEmp(Integer empId, String empName, String gender, String email, Integer dId) {
         this.empId = empId;
         this.empName = empName;
         this.gender = gender;
@@ -30,7 +30,7 @@ public class Employee {
         this.dId = dId;
     }
 
-    public Employee(Integer empId, String empName, String gender, String email, Integer dId, Department dept) {
+    public TblEmp(Integer empId, String empName, String gender, String email, Integer dId, TblDept dept) {
         this.empId = empId;
         this.empName = empName;
         this.gender = gender;
@@ -79,11 +79,11 @@ public class Employee {
         this.dId = dId;
     }
 
-    public Department getDept() {
+    public TblDept getDept() {
         return dept;
     }
 
-    public void setDept(Department dept) {
+    public void setDept(TblDept dept) {
         this.dept = dept;
     }
 

@@ -1,6 +1,6 @@
 package com.company.mapper;
 
-import com.company.bean.Employee;
+import com.company.bean.TblEmp;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class EmployeeMapperTest {
     @Autowired
-    EmployeeMapper employeeMapper;
+    TblEmpMapper tblEmpMapper;
     @Autowired
     SqlSessionTemplate sqlSessionTemplate;
 
@@ -30,7 +30,7 @@ public class EmployeeMapperTest {
 
     @Test
     public void insert() {
-        employeeMapper.insert(new Employee(null, "王振", "男", "123@qq.com", 2, null));
+        tblEmpMapper.insert(new TblEmp(null, "王振", "男", "123@qq.com", 2, null));
     }
 
     @Test
@@ -39,14 +39,14 @@ public class EmployeeMapperTest {
 
     @Test
     public void selectByPrimaryKey() {
-        Employee employee = employeeMapper.selectByPrimaryKey(2);
-        System.out.println(employee);
+        TblEmp tblEmp = tblEmpMapper.selectByPrimaryKey(2);
+        System.out.println(tblEmp);
     }
 
     @Test
     public void selectByPrimaryKeyWithDept() {
-        Employee employee = employeeMapper.selectByPrimaryKeyWithDept(2);
-        System.out.println(employee);
+        TblEmp tblEmp = tblEmpMapper.selectByPrimaryKeyWithDept(2);
+        System.out.println(tblEmp);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class EmployeeMapperTest {
     public void batchInsert() {
         for (int i = 0; i < 1000; i++) {
             String name = UUID.randomUUID().toString().substring(0, 5).replace("-", "");
-            employeeMapper.insert(new Employee(null, name, "男", name + "@gmail.com", 1, null));
+            tblEmpMapper.insert(new TblEmp(null, name, "男", name + "@gmail.com", 1, null));
         }
     }
 }

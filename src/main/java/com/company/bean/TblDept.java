@@ -6,15 +6,15 @@ package com.company.bean;
  * @date 2020/7/8 15:04
  */
 
-public class Department {
+public class TblDept {
     private Integer deptId;
 
     private String deptName;
 
-    public Department() {
+    public TblDept() {
     }
 
-    public Department(Integer deptId, String deptName) {
+    public TblDept(Integer deptId, String deptName) {
         this.deptId = deptId;
         this.deptName = deptName;
     }

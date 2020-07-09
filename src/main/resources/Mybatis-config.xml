@@ -5,11 +5,10 @@
 <configuration>
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <!--<setting name="logImpl" value="LOG4J"/>-->
+        <setting name="logImpl" value="LOG4J"/>
     </settings>
     <typeAliases>
         <package name="com.company.bean"/>
     </typeAliases>
     <!--每一个Mapper都要在Mybatis中注册-->
-
 </configuration>

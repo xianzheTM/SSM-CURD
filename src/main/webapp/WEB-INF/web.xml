@@ -9,6 +9,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
+
     <!--用于创建ServletContext监听器,将Spring容器放入域中,保证唯一-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

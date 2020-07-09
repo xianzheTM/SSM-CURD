@@ -25,4 +25,4 @@
 hs_err_pid*
 
 /.idea/
-/src/main/resources/druid.properties
+/src/main/resources/jdbc.properties

@@ -1,6 +1,6 @@
 package com.company.mapper;
 
-import com.company.bean.TblDept;
+import com.company.bean.Department;
 
 /**
  * @author xianzheTM
@@ -11,13 +11,13 @@ import com.company.bean.TblDept;
 public interface TblDeptMapper {
     int deleteByPrimaryKey(Integer deptId);
 
-    int insert(TblDept record);
+    int insert(Department record);
 
-    int insertSelective(TblDept record);
+    int insertSelective(Department record);
 
-    TblDept selectByPrimaryKey(Integer deptId);
+    Department selectByPrimaryKey(Integer deptId);
 
-    int updateByPrimaryKeySelective(TblDept record);
+    int updateByPrimaryKeySelective(Department record);
 
-    int updateByPrimaryKey(TblDept record);
+    int updateByPrimaryKey(Department record);
 }

@@ -25,4 +25,7 @@ public class TblEmpService {
         return tblEmpMapper.selectAll();
     }
 
+    public void saveEmp(TblEmp tblEmp) {
+        tblEmpMapper.insertSelective(tblEmp);
+    }
 }

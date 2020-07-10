@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.bean.Msg;
 import com.company.bean.TblEmp;
 import com.company.service.TblEmpService;
 import com.github.pagehelper.PageHelper;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -26,8 +28,20 @@ public class TblEmpController {
         this.tblEmpService = tblEmpService;
     }
 
-
     @RequestMapping("/emps")
+    @ResponseBody
+    public Msg getEmpWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {
+        PageHelper.startPage(pn, 5);
+        // startPage后面紧跟的这个查询就是一个分页查询
+        List<TblEmp> emps = tblEmpService.getAll();
+        // 使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了。
+        // 封装了详细的分页信息,包括有我们查询出来的数据，传入连续显示的页数
+        PageInfo<TblEmp> page = new PageInfo<>(emps, 5);
+        //直接返回对象,等会把对象转为json
+        return Msg.success().add("pageInfo", page);
+    }
+
+    //@RequestMapping("/emps")
     public String getEmps(
             @RequestParam(value = "pn", defaultValue = "1") Integer pn,
             Model model) {

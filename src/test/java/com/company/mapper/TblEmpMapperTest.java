@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class EmployeeMapperTest {
+public class TblEmpMapperTest {
     @Autowired
     TblEmpMapper tblEmpMapper;
     @Autowired

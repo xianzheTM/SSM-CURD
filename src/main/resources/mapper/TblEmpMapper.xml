@@ -130,7 +130,7 @@
         where emp_id = #{empId,jdbcType=INTEGER}
     </select>
 
-    <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="WithDeptResultMap">
         select
         <include refid="WithDept_Column_List"/>
         from tbl_emp te

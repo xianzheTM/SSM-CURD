@@ -28,6 +28,60 @@
             src="${APP_PATH }/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">员工添加</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">empName</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="empName" class="form-control" id="empName_add_input"
+                                   placeholder="姓名">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">email</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="email" class="form-control" id="email_add_input"
+                                   placeholder="email@xxx.com">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">gender</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="gender1_add_input" value="M" checked="checked"> 男
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="gender2_add_input" value="F"> 女
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">dept.deptName</label>
+                        <div class="col-sm-4">
+                            <!-- 部门提交部门id即可 -->
+                            <select class="form-control" name="dId">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="emp_save_btn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--设置显示页面,整个页面是在一个容器中.-->
 <div class="container-fluid">
     <!--这个页面分为四排-->
@@ -40,7 +94,7 @@
     <%--按钮--%>
     <div class="row">
         <div class="col-md-4 col-md-offset-8">
-            <button class="btn btn-primary">新增</button>
+            <button class="btn btn-primary" id="emp_add_btn">新增</button>
             <button class="btn btn-danger">删除</button>
         </div>
     </div>
@@ -64,14 +118,10 @@
     </div>
     <%--分页条--%>
     <div class="row">
-        <div class="col-lg-6" id="page_info_area">
-
-        </div>
+        <div class="col-lg-6" id="page_info_area"></div>
 
         <!-- 分页条信息 -->
-        <div class="col-md-6" id="page_nav_area">
-
-        </div>
+        <div class="col-md-6" id="page_nav_area"></div>
     </div>
 </div>
 <script type="text/javascript">
@@ -79,6 +129,28 @@
     $(function () {
         to_page(1);
     })
+
+    $("#emp_add_btn").click(function () {
+        //显示部门下拉列表
+        getDepts();
+        $("#empAddModal").modal({
+            backdrop: "static"
+        })
+    })
+
+    function getDepts() {
+        $.ajax({
+            url: "${APP_PATH}/depts",
+            type: "GET",
+            success: function (result) {
+                // console.log(result);
+                $.each(result.extend.depts,function () {
+                    var optionElement = $("<option></option>").append(this.deptName).attr("value", this.deptId);
+                    optionElement.appendTo("#empAddmodal select");
+                });
+            }
+        });
+    }
 
     function to_page(pn) {
         $.ajax({

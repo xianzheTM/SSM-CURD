@@ -20,24 +20,40 @@ import java.util.List;
 
 
 /**
+ * The type Tbl emp controller test.
+ *
  * @author xianzheTM
  * @version 1.0
- * @date 2020/7/9 12:23
+ * @date 2020 /7/9 12:23
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:springmvc.xml"})
 public class TblEmpControllerTest {
-    //传入Springmvc的ioc
+    /**
+     * The Context.
+     */
+//传入Springmvc的ioc
     @Autowired
     WebApplicationContext context;
+    /**
+     * The Mock mvc.
+     */
     MockMvc mockMvc;
 
+    /**
+     * Init mock mvc.
+     */
     @Before
     public void initMockMvc() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
+    /**
+     * Test page.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testPage() throws Exception {
         //模拟请求拿到返回值

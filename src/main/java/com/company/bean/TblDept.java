@@ -3,7 +3,7 @@ package com.company.bean;
 /**
  * @author xianzheTM
  * @version 1.0
- * @date 2020/7/8 15:04
+ * @date 2020/7/10 16:25
  */
 
 public class TblDept {
@@ -33,13 +33,5 @@ public class TblDept {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
-    }
-
-    @Override
-    public String toString() {
-        return "TblDept{" +
-                "deptId=" + deptId +
-                ", deptName='" + deptName + '\'' +
-                '}';
     }
 }
